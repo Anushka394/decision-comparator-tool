@@ -1,0 +1,227 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f5f5f5;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.header p {
+  color: #666;
+  font-size: 18px;
+}
+
+.form-container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.options-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.submit-btn {
+  background: #007bff;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background: #0056b3;
+}
+
+.submit-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.results-container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.option-card {
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.option-card h3 {
+  color: #007bff;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.pros-cons {
+  margin-bottom: 20px;
+}
+
+.pros-cons h4 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.pros-cons.pros h4 {
+  color: #28a745;
+}
+
+.pros-cons.cons h4 {
+  color: #dc3545;
+}
+
+.pros-cons ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.pros-cons li {
+  padding: 5px 0;
+  padding-left: 20px;
+  position: relative;
+}
+
+.pros-cons.pros li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #28a745;
+  font-weight: bold;
+}
+
+.pros-cons.cons li:before {
+  content: "✗";
+  position: absolute;
+  left: 0;
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.trade-offs,
+.recommendation {
+  border-top: 2px solid #e9ecef;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.trade-offs h3,
+.recommendation h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.trade-offs ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.trade-offs li {
+  padding: 8px 0;
+  padding-left: 20px;
+  position: relative;
+}
+
+.trade-offs li:before {
+  content: "⚖";
+  position: absolute;
+  left: 0;
+}
+
+.recommendation p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  border-left: 4px solid #007bff;
+}
+
+@media (max-width: 768px) {
+  .options-row,
+  .comparison-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .container {
+    padding: 10px;
+  }
+  
+  .form-container,
+  .results-container {
+    padding: 20px;
+  }
+}
