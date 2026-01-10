@@ -51,5 +51,3 @@ POST /api/compare
   "option2": "JavaScript"
 }
 ```
-
-Perfect for hackathons - minimal setup, maximum impact!
