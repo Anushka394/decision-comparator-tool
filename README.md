@@ -14,10 +14,6 @@ A full-stack hackathon project that helps users make better decisions by compari
    npm run dev
    ```
 
-3. **Access the application:**
-   - Frontend: http://localhost:3000
-   - Backend API: http://localhost:5000
-
 ## Features
 
 - Input a problem and two options to compare
