@@ -93,8 +93,9 @@ function App() {
         </form>
 
         {error && (
-          <div style={{ color: 'red', marginTop: '10px' }}>
-            {error}
+          <div className="error-message">
+            <span className="error-icon">⚠️</span>
+            <span>{error}</span>
           </div>
         )}
       </div>
