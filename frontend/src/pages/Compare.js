@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 import './Compare.css';
 
 function Compare() {
+  const { isAuthenticated } = useAuth();
   const [formData, setFormData] = useState({
     problem: '',
     option1: '',
@@ -25,17 +27,9 @@ function Compare() {
     setError('');
     
     try {
-      const response = await axios.post('/api/compare', formData);
+      const endpoint = isAuthenticated ? '/api/decisions/compare' : '/api/compare';
+      const response = await axios.post(endpoint, formData);
       setResults(response.data);
-      
-      // Save to localStorage for history
-      const history = JSON.parse(localStorage.getItem('decisionHistory') || '[]');
-      history.unshift({
-        ...response.data,
-        timestamp: new Date().toISOString(),
-        id: Date.now()
-      });
-      localStorage.setItem('decisionHistory', JSON.stringify(history.slice(0, 20)));
     } catch (err) {
       setError('Failed to compare options. Please try again.');
       console.error('Error:', err);
@@ -55,6 +49,9 @@ function Compare() {
       <div className="compare-header">
         <h1>Compare Your Options</h1>
         <p>Enter your decision details and let AI help you choose wisely</p>
+        {!isAuthenticated && (
+          <p className="auth-notice">Sign in to save your decision history</p>
+        )}
       </div>
 
       <div className="form-container">

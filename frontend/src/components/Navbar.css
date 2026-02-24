@@ -25,7 +25,10 @@
   text-decoration: none;
   font-size: 1.5rem;
   font-weight: 800;
-  color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   transition: transform 0.3s ease;
 }
 
@@ -34,14 +37,7 @@
 }
 
 .logo-icon {
-  font-size: 2rem;
-}
-
-.logo-text {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 1.5rem;
 }
 
 .nav-menu {
@@ -95,4 +91,33 @@
     padding: 8px 15px;
     font-size: 0.9rem;
   }
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-name {
+  color: #4a5568;
+  font-weight: 600;
+  padding: 10px 15px;
+}
+
+.logout-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.register-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white !important;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.register-btn:hover {
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
 }

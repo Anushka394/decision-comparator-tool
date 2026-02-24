@@ -1,29 +1,48 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './History.css';
 
 function History() {
   const [history, setHistory] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const savedHistory = JSON.parse(localStorage.getItem('decisionHistory') || '[]');
-    setHistory(savedHistory);
+    fetchHistory();
   }, []);
 
-  const handleDelete = (id) => {
-    const updatedHistory = history.filter(item => item.id !== id);
-    setHistory(updatedHistory);
-    localStorage.setItem('decisionHistory', JSON.stringify(updatedHistory));
-    if (selectedItem?.id === id) {
-      setSelectedItem(null);
+  const fetchHistory = async () => {
+    try {
+      const response = await axios.get('/api/decisions/history');
+      setHistory(response.data.data);
+    } catch (error) {
+      console.error('Failed to fetch history:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleClearAll = () => {
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`/api/decisions/${id}`);
+      setHistory(history.filter(item => item.id !== id));
+      if (selectedItem?.id === id) {
+        setSelectedItem(null);
+      }
+    } catch (error) {
+      console.error('Failed to delete decision:', error);
+    }
+  };
+
+  const handleClearAll = async () => {
     if (window.confirm('Are you sure you want to clear all history?')) {
-      setHistory([]);
-      setSelectedItem(null);
-      localStorage.removeItem('decisionHistory');
+      try {
+        await Promise.all(history.map(item => axios.delete(`/api/decisions/${item.id}`)));
+        setHistory([]);
+        setSelectedItem(null);
+      } catch (error) {
+        console.error('Failed to clear history:', error);
+      }
     }
   };
 
@@ -37,6 +56,15 @@ function History() {
       minute: '2-digit'
     });
   };
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="spinner-large"></div>
+        <p>Loading history...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="history-container">
