@@ -1,128 +1,153 @@
 # DecisionAI
 
-A web app I built to help people compare options and make better decisions. Sometimes you just need to see the pros and cons laid out clearly, you know?
+A web application that helps users compare two options and make informed decisions. Users can create an account, compare options, and view their decision history.
 
-## What it does
+## Features
 
-Enter a decision you're struggling with and two options you're considering. The app breaks down the advantages and disadvantages of each choice, shows you the trade-offs, and gives you a recommendation. All your past comparisons are saved so you can look back at them later.
+- User authentication (register/login)
+- Compare two options with detailed analysis
+- View pros and cons for each option
+- Get trade-off insights and recommendations
+- Save and review decision history
+- Responsive design for mobile and desktop
 
-## Why I built this
+## Tech Stack
 
-We all face tough decisions - career moves, purchases, life choices. I wanted to create something that makes the decision-making process less overwhelming by organizing your thoughts in a structured way.
+**Frontend:**
+- React
+- React Router
+- Axios
+- CSS3
 
-## Tech I used
+**Backend:**
+- Node.js
+- Express.js
+- MySQL
+- JWT Authentication
+- bcryptjs
 
-**Frontend**
-- React for the UI
-- React Router for page navigation
-- Axios for API calls
-- CSS3 for styling (no frameworks, just vanilla CSS)
+## Prerequisites
 
-**Backend**
-- Node.js + Express for the API
-- Simple REST endpoints
+- Node.js installed
+- MySQL installed and running
 
-The whole thing runs locally - frontend on port 3000, backend on 5000.
+## Installation
 
-## Getting started
+1. Clone the repository
+```bash
+git clone https://github.com/Anushka394/decision-comparator-tool.git
+cd decision-comparator
+```
 
-Clone it and install dependencies:
+2. Install dependencies
 ```bash
 npm run install-all
 ```
 
-Run both servers:
+3. Set up MySQL database
+
+Open MySQL and run:
+```sql
+CREATE DATABASE decisionai_db;
+```
+
+Then run the setup script:
+```bash
+mysql -u root -p decisionai_db < backend/setup_database.sql
+```
+
+4. Configure environment variables
+
+Edit `backend/.env` file:
+```
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=decisionai_db
+JWT_SECRET=your_secret_key
+PORT=5000
+```
+
+## Running the Application
+
+Start both servers:
 ```bash
 npm run dev
 ```
 
-Or run them separately if you prefer:
+Or run separately:
+
+Backend:
 ```bash
-# Terminal 1
-cd backend && npm run dev
-
-# Terminal 2  
-cd frontend && npm start
+cd backend
+npm run dev
 ```
 
-## Project structure
+Frontend:
+```bash
+cd frontend
+npm start
+```
+
+The application will be available at:
+- Frontend: http://localhost:3000
+- Backend: http://localhost:5000
+
+## Usage
+
+1. Register for an account
+2. Log in with your credentials
+3. Go to Compare page
+4. Enter your decision and two options
+5. View the analysis with pros, cons, and recommendations
+6. Check History page to review past decisions
+
+## Project Structure
 
 ```
+├── backend/
+│   ├── config/          # Database configuration
+│   ├── controllers/     # Request handlers
+│   ├── middleware/      # Authentication middleware
+│   ├── routes/          # API routes
+│   ├── utils/           # Helper functions
+│   └── server.js        # Entry point
 ├── frontend/
 │   ├── src/
-│   │   ├── components/    # Navbar
-│   │   ├── pages/         # Home, Compare, History, About
-│   │   ├── App.js
-│   │   └── index.css
-│   └── package.json
-├── backend/
-│   ├── server.js
-│   └── package.json
+│   │   ├── components/  # Reusable components
+│   │   ├── context/     # Auth context
+│   │   ├── pages/       # Page components
+│   │   └── App.js       # Main app component
+│   └── public/
 └── package.json
 ```
 
-## Features
+## API Endpoints
 
-**Compare page** - Main tool where you input your decision and options
+**Authentication:**
+- POST `/api/auth/register` - Register new user
+- POST `/api/auth/login` - Login user
+- GET `/api/auth/me` - Get current user
 
-**History page** - See all your past comparisons, click to view details
+**Decisions:**
+- POST `/api/decisions/compare` - Create new comparison
+- GET `/api/decisions/history` - Get user's decision history
+- DELETE `/api/decisions/:id` - Delete a decision
 
-**Home page** - Landing page explaining what the app does
+## Database Schema
 
-**About page** - More info about how it works
+**users**
+- id, name, email, password, created_at, updated_at
 
-The UI has some nice touches like gradient backgrounds, smooth animations, and a glass effect on the cards. Everything's responsive so it works on mobile too.
+**decisions**
+- id, user_id, problem, option1_name, option2_name, recommendation, created_at
 
-## API
+**pros_cons**
+- id, decision_id, option_number, type, content
 
-There's one main endpoint:
-
-```
-POST /api/compare
-```
-
-Send it:
-```json
-{
-  "problem": "your decision",
-  "option1": "first choice",
-  "option2": "second choice"
-}
-```
-
-Get back:
-```json
-{
-  "problem": "...",
-  "option1": { "name": "...", "pros": [...], "cons": [...] },
-  "option2": { "name": "...", "pros": [...], "cons": [...] },
-  "tradeOffs": [...],
-  "recommendation": "..."
-}
-```
-
-## What I learned
-
-This was a good project for practicing:
-- Multi-page React apps with routing
-- Building REST APIs
-- Managing state with hooks
-- Local storage for data persistence
-- CSS Grid and Flexbox layouts
-- Making things responsive
-
-## Future ideas
-
-Some things I might add:
-- User accounts and authentication
-- Database instead of local storage
-- Export comparisons as PDF
-- Compare more than 2 options
-- Dark mode
-- Share decisions via link
+**tradeoffs**
+- id, decision_id, content
 
 ## License
 
-MIT - feel free to use this however you want
-
----
+MIT
