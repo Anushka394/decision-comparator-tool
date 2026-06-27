@@ -32,7 +32,9 @@ function Compare() {
         ? `${API_BASE_URL}/api/decisions/compare` 
         : `${API_BASE_URL}/api/compare`;
       const response = await axios.post(endpoint, formData);
-      setResults(response.data);
+      // Authenticated endpoint returns { success, data: {...} }
+      // Guest endpoint returns the result directly
+      setResults(isAuthenticated ? response.data.data : response.data);
     } catch (err) {
       setError('Failed to compare options. Please try again.');
       console.error('Error:', err);
