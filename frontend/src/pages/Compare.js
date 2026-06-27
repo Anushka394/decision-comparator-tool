@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config';
 import './Compare.css';
 
 function Compare() {
@@ -27,7 +28,9 @@ function Compare() {
     setError('');
     
     try {
-      const endpoint = isAuthenticated ? '/api/decisions/compare' : '/api/compare';
+      const endpoint = isAuthenticated 
+        ? `${API_BASE_URL}/api/decisions/compare` 
+        : `${API_BASE_URL}/api/compare`;
       const response = await axios.post(endpoint, formData);
       setResults(response.data);
     } catch (err) {

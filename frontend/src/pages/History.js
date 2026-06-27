@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config';
 import './History.css';
 
 function History() {
@@ -13,7 +14,7 @@ function History() {
 
   const fetchHistory = async () => {
     try {
-      const response = await axios.get('/api/decisions/history');
+      const response = await axios.get(`${API_BASE_URL}/api/decisions/history`);
       setHistory(response.data.data);
     } catch (error) {
       console.error('Failed to fetch history:', error);
@@ -24,7 +25,7 @@ function History() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/decisions/${id}`);
+      await axios.delete(`${API_BASE_URL}/api/decisions/${id}`);
       setHistory(history.filter(item => item.id !== id));
       if (selectedItem?.id === id) {
         setSelectedItem(null);
@@ -37,7 +38,7 @@ function History() {
   const handleClearAll = async () => {
     if (window.confirm('Are you sure you want to clear all history?')) {
       try {
-        await Promise.all(history.map(item => axios.delete(`/api/decisions/${item.id}`)));
+        await Promise.all(history.map(item => axios.delete(`${API_BASE_URL}/api/decisions/${item.id}`)));
         setHistory([]);
         setSelectedItem(null);
       } catch (error) {
